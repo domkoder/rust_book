@@ -15,6 +15,8 @@ fn main() {
     let r2: &mut String = &mut s;
 
     println!("{}", r2);
+
+    let reference_to_nothing: String = no_dangle();
 }
 
 fn calculate_length(s: &String) -> usize { // s is a reference to a String 
@@ -24,4 +26,17 @@ fn calculate_length(s: &String) -> usize { // s is a reference to a String
 
 fn change(some_string: &mut String) {
     some_string.push_str(", world");
+}
+
+// fn dangle() -> &String { // dangle return a reference to a string
+
+//     let s: String = String::from("hello"); // s is a new String
+
+//     &s // we return a reference to the String, s
+// } // Here, s goes out of scope, and is dropped. Its memory goes away.
+
+fn no_dangle() -> String {
+    let s: String = String::from("Hellow");
+
+    s
 }
