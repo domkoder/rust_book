@@ -17,6 +17,23 @@ fn main() {
     println!("{}", r2);
 
     let reference_to_nothing: String = no_dangle();
+
+    // The slice Type
+    let word_string = String::from("hello world");
+
+    let hello: &str = &s[0..5];
+    let world: &str = &s[6..11];
+
+
+    let word = first_word(&word_string);
+
+    let array: [i32; 5] = [1,2,3,4,5];
+
+    let slice = &array[1..3];
+
+    assert_eq!(slice, &[2, 3]);
+
+    println!("{word}");
 }
 
 fn calculate_length(s: &String) -> usize { // s is a reference to a String 
@@ -39,4 +56,14 @@ fn no_dangle() -> String {
     let s: String = String::from("Hellow");
 
     s
+}
+
+fn first_word(s: &str) -> &str {
+    let bytes: &[u8] = s.as_bytes();
+    for(i, &item) in bytes.iter().enumerate(){
+        if item == b' ' {
+            return &s[0..i];
+        }
+    }
+    &s[..]
 }
