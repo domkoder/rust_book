@@ -1,18 +1,18 @@
+
+#[derive(Debug)]
 struct  Rectangel {
     width: u32,
     height: u32,
 }
 
 fn main() {
+    let scale: u32 = 2;
     let rect1: Rectangel = Rectangel {
-        width: 30,
+        width: dbg!(30 * scale),
         height: 50,
     };
-
-    println!(
-        "The area of the rectangle is {} square pixels.",
-        area(&rect1)
-    )
+    dbg!(&rect1);
+    println!("rect1 is {:#?}", rect1);
 
 }
 
