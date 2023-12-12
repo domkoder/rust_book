@@ -10,12 +10,8 @@ impl Rectangel {
         self.width * self.height
     }
 
-    fn width(&self) -> bool {
-        self.width > 0
-    }
-
-    fn can_hold(&self, other:&Rectangel)-> bool{
-        self.width > other.width && self.height > other.height 
+    fn set_width(&mut self, width: u32) {
+        self.width = width;
     }
 
     fn square(size: u32) -> Self {
@@ -23,6 +19,12 @@ impl Rectangel {
             width: size,
             height: size
         }
+    }
+}
+
+impl Rectangel {
+    fn can_hold(&self, other:&Rectangel)-> bool{
+        self.width > other.width && self.height > other.height 
     }
 }
 
@@ -42,6 +44,18 @@ fn main() {
         height: 45
     };
 
+    let mut r: Rectangel = Rectangel{
+        width: 1,
+        height: 2
+    };
+
+    let area1: u32 = r.area();
+    let area2: u32 = Rectangel::area(&r);
+    assert_eq!(area1, area2);
+
+    r.set_width(2);
+    Rectangel::set_width(&mut r, 2);
+
     Rectangel::square(20);
 
 
@@ -51,10 +65,6 @@ fn main() {
         "The area of the rectangle is {} square pixels.",
         rect1.area()
     );
-
-    if rect1.width() {
-        println!("The rectangle has a nonzero width; it is {}", rect1.width)
-    };
 
     println!("Can rect1 hold rect2? {}", rect1.can_hold(&rect2));
     println!("Can rect1 hold rect3? {}", rect2.can_hold(&rect3));
