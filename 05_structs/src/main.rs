@@ -17,6 +17,13 @@ impl Rectangel {
     fn can_hold(&self, other:&Rectangel)-> bool{
         self.width > other.width && self.height > other.height 
     }
+
+    fn square(size: u32) -> Self {
+        Self {
+            width: size,
+            height: size
+        }
+    }
 }
 
 fn main() {
@@ -34,6 +41,8 @@ fn main() {
         width: 60,
         height: 45
     };
+
+    Rectangel::square(20);
 
 
     dbg!(&rect1);
