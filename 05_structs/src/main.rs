@@ -20,6 +20,10 @@ impl Rectangel {
             height: self.height.max(other.height),
         }
     }
+
+    fn set_to_max(&mut self, other: Rectangel) {
+        *self = self.max(other)
+    }
 }
 
 // impl Rectangel {
@@ -76,19 +80,18 @@ fn main() {
     // println!("Can rect1 hold rect2? {}", rect1.can_hold(&rect2));
     // println!("Can rect1 hold rect3? {}", rect2.can_hold(&rect3));
 
-    let mut rect: Rectangel = Rectangel {
+    let  rect: Rectangel = Rectangel {
         width: 0,
         height:0
     };
 
-    rect.set_width(1);
+    let other_rect: Rectangel = Rectangel {
+        width:1, 
+        height:1
+    };
 
-    let rect_ref: &Rectangel = &rect;
+    let max_rect: Rectangel = rect.max(other_rect);
 
-    rect_ref.set_width(2);
-
-    println!("{}", rect.area());
-
-
+    println!("{}", rect.area())
 }
 
