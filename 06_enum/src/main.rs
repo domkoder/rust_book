@@ -13,6 +13,13 @@ enum Coin {
     Quarter(UsState),
 }
 
+
+#[derive(Debug)]
+enum Either {
+  Left(usize),
+  Right(String)
+}
+
 fn value_in_cents(coin: Coin) -> u8 {
     match coin {
         Coin::Penny => {
@@ -38,9 +45,9 @@ fn plus_one(x: Option<i32>) -> Option<i32> {
 
 fn main() {
     value_in_cents(Coin::Quarter(UsState::Alaska));
-    let five = Some(5);
-    let six = plus_one(five);
-    let none = plus_one(None);
+    let five: Option<i32> = Some(5);
+    let six: Option<i32> = plus_one(five);
+    let none: Option<i32> = plus_one(None);
 
     println!("{:#?}", none);
 
@@ -51,6 +58,22 @@ fn main() {
         7 => remove_fancy_hat(),
         _ => (),
     }
+
+    let opt: Option<String> = Some(String::from("Hello world"));
+
+    match &opt {
+        Some(s) => println!("Some: {}", s),
+        None => println!("None!")
+    }
+
+    println!("{:?}", opt);
+
+    let x = Either::Right(String::from("Hello world"));
+    let value = match x {
+      Either::Left(n) => n,
+      Either::Right(s) => s.len()
+    };
+    println!("{x:?} {value}");
 }
 
 fn add_fancy_hat() {}
