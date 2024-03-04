@@ -1,97 +1,53 @@
+struct Point {
+	x: f64,
+	y: f64
+}
 
-#[derive(Debug)]
-struct  Rectangel {
+impl Point {
+    fn origin() -> Point {
+        Point {x: 0.0, y: 0.0}
+    }
+
+    fn new(x:f64, y: f64) -> Point {
+		Point{x: x, y: y}
+    }
+}
+
+struct  Rectangle {
+	p1: Point,
+	p2: Point
+}
+
+impl Rectangle {
+    fn area(&self) -> f64 {
+        let Point {x: x1, y: y1} = self.p1;
+        let Point {x: x2, y: y2} = self.p2;
+
+        2.0 * ((x1 - x2).abs() + (y1 -y2).abs())
+    }
+}
+
+struct Rectangle {
     width: u32,
     height: u32,
 }
-
-impl Rectangel {
-    fn area(&self) -> u32 {
-        self.width * self.height
+impl Rectangle {    
+  fn max(self, other: Self) -> Self {
+    let w = self.width.max(other.width);
+    let h = self.height.max(other.height);
+    Rectangle { 
+      width: w,
+      height: h
     }
-
-    fn set_width(&mut self, width: u32) {
-        self.width = width;
-    }
-
-    fn max(self, other: Rectangel)-> Rectangel {
-        Rectangel {
-            width: self.width.max(other.width),
-            height: self.height.max(other.height),
-        }
-    }
-
-    fn set_to_max(&mut self, other: Rectangel) {
-        *self = self.max(other)
+  }
+    fn set_to_max(&mut self, other: Rectangle) {
+        let max = self.max(other);
+        *self = max;
     }
 }
-
-// impl Rectangel {
-//     fn can_hold(&self, other:&Rectangel)-> bool{
-//         self.width > other.width && self.height > other.height 
-//     }
-
-//     fn square(size: u32) -> Self {
-//         Self {
-//             width: size,
-//             height: size
-//         }
-//     }
-// }
 
 fn main() {
-    // let rect1: Rectangel = Rectangel {
-    //     width: 30,
-    //     height: 50,
-    // };
-
-    // let rect2: Rectangel = Rectangel {
-    //     width: 10,
-    //     height: 40,
-    // };
-
-    // let rect3: Rectangel = Rectangel {
-    //     width: 60,
-    //     height: 45
-    // };
-
-    // let mut r: Rectangel = Rectangel{
-    //     width: 1,
-    //     height: 2
-    // };
-
-    // let area1: u32 = r.area();
-    // let area2: u32 = Rectangel::area(&r);
-    // assert_eq!(area1, area2);
-
-    // r.set_width(2);
-    // Rectangel::set_width(&mut r, 2);
-
-    // Rectangel::square(20);
-
-
-    // dbg!(&rect1);
-
-    // println!(
-    //     "The area of the rectangle is {} square pixels.",
-    //     rect1.area()
-    // );
-
-    // println!("Can rect1 hold rect2? {}", rect1.can_hold(&rect2));
-    // println!("Can rect1 hold rect3? {}", rect2.can_hold(&rect3));
-
-    let  rect: Rectangel = Rectangel {
-        width: 0,
-        height:0
-    };
-
-    let other_rect: Rectangel = Rectangel {
-        width:1, 
-        height:1
-    };
-
-    let max_rect: Rectangel = rect.max(other_rect);
-
-    println!("{}", rect.area())
+    let mut rect = Rectangle { width: 0, height: 1 };
+    let other_rect = Rectangle { width: 1, height: 0 };
+    rect.set_to_max(other_rect);
 }
-
